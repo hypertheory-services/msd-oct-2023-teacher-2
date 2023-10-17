@@ -4,6 +4,7 @@ using Portal.Api.UserApi.Entities;
 using Portal.Api.UserApi.Events;
 using System.Security.Claims;
 using Wolverine;
+using Wolverine.Runtime;
 
 namespace Portal.Api.UserApi.Handlers;
 
@@ -51,7 +52,7 @@ public class UserHandler
 
     }
 
-    public async Task<UserIssueEntity> HandleAsync(CreateUserIssue command)
+    public async Task<UserIssueEntity> HandleAsync(CreateUserIssue command, MessageBus bus)
     {
         var claim = _contextAccessor.HttpContext?.User.Claims.SingleOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
         if (claim is null)
@@ -67,7 +68,11 @@ public class UserHandler
 
             user.PendingIssues.Add(issue);
 
+            // TODO: Use the outbox. 
+            await bus.PublishAsync(new UserIssueCreated(issue.IssueId, issue.SoftwareId, user.Id, issue.Description, issue.created));
+
             _session.Store(user);
+
             await _session.SaveChangesAsync();
             return issue;
 

@@ -5,6 +5,7 @@ using Marten;
 
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Portal.Api.External.Consumers;
+using Portal.Api.External.Producers;
 using Wolverine;
 using Wolverine.Marten;
 
@@ -72,6 +73,7 @@ public static class ServicesExtensions
             opts.Services.AddMarten(connectionString)
             .IntegrateWithWolverine().UseLightweightSessions();
             opts.Policies.AutoApplyTransactions();
+            Console.WriteLine(opts.DescribeHandlerMatch(typeof(KafkfaUserHandler)));
         });
 
         var kafkaConnectionString = config.GetConnectionString("kafka") ?? throw new Exception("Need a Kafka Broker");

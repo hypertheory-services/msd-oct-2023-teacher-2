@@ -7,3 +7,4 @@ public record UserIssueCreated(Guid IssueId, Guid SoftwareId, Guid UserId, strin
 public record UserLoggedIn(Guid UserId, DateTimeOffset When);
 
 public record UserCreated(Guid UserId, DateTimeOffset When);
+
