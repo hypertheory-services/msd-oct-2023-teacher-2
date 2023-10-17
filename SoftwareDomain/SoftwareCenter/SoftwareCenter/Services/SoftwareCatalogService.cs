@@ -23,8 +23,8 @@ public class SoftwareCatalogService
         var titleToAdd = SoftwareInventoryItemEntity.From(request);
         _context.Titles.Add(titleToAdd);
         // call the portal and let them know there is new software
-        await _context.SaveChangesAsync();
-        await _publisher.PublishNewTitleAsync(titleToAdd);
+        await _context.SaveChangesAsync(); // save it to the local database
+        await _publisher.PublishNewTitleAsync(titleToAdd); // publishing it to the broker.
     }
 
     public async Task RetireTitleAsync(int id)

@@ -1,6 +1,7 @@
 
 using Portal.Api.Infra;
 using Portal.Api.SoftwareApi;
+using Portal.Api.UserApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,5 +20,6 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapSoftwareCatalogApi();
+app.MapUserApi();
 
 app.Run();
