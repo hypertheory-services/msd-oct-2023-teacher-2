@@ -34,6 +34,8 @@ public class PortalMessagesController : ControllerBase
         await _publisher.PublishAsync(
             "company.com.software.userissuereceived",
             new UserIssueLogged(newIssue.IssueId, DateTimeOffset.Now));
+
+
         return Ok();
     }
 }
