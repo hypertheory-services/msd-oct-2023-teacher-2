@@ -1,0 +1,37 @@
+﻿@page "{Id}"
+@model SoftwareCenter.Pages.Catalog.user_issuesModel
+@{
+}
+@if (Model.Title is not null)
+{
+    <h3>User Issues For @Model.Title.TitleName</h3>
+
+    @if(Model.Title.Issues is not null) {
+        @foreach (var issue in Model?.Title?.Issues)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h4>From @issue.User on @issue.Software.TitleName</h4>
+                    <h5>Support Tech @issue.Software.SupportTech</h5>
+                </div>
+                <div class="card-body">
+                    <p>Narrative</p>
+                    <p>@issue.Description</p>
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <form method="post" asp-page-handler="annotate" asp-route-id="@Model.Title.Id" >
+                            <p>Add a Note?</p>
+                            <div>
+                                <textarea cols="80" asp-for="Annotation.Note"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm">Add Note</button>
+                        </form>
+                    </div>
+                
+
+                </div>
+            </div>
+        }
+    }
+}

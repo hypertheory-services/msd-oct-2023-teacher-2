@@ -34,3 +34,21 @@ public class SoftwareItemRetired
   
 }
 ```
+
+## `company.com.software.userissuereceived"`
+
+```csharp
+
+public record UserIssueLogged(string IssueId, DateTimeOffset When);
+```
+
+## `company.com.software.userissuerannotated`
+
+```csharp
+
+public class UserEventAnnotation
+{
+    public int Id { get; set; }
+    public string Note { get; set; } = string.Empty;
+}
+```

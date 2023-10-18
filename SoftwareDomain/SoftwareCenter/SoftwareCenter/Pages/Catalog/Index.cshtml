@@ -24,6 +24,10 @@
             </div>
                 <div class="card-footer">
                     <a asp-page="retire" asp-route-id="@title.Id" class="card-link">Retire This Software</a>
+                    @if(title.Issues.Count > 0)
+                    {
+                        <a asp-page="user-issues" asp-route-id="@title.Id" class="card-link">This Title Has @title.Issues.Count User Issues. Click Here To See Them</a>
+                    }
                 </div>
         </div>
     </li>

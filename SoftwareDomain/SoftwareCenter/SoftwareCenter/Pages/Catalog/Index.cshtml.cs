@@ -23,6 +23,7 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        Titles = await _service.GetActiveTitles().ToListAsync();
+        Titles = await _service.GetActiveTitles().Include(t => t.Issues). ToListAsync();
+       
     }
 }

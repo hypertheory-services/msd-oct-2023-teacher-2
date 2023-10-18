@@ -26,7 +26,7 @@ public class PortalMessagesController : ControllerBase
         {
             IssueId = request.IssueId,
             Description = request.Description,
-            SoftwareId = request.SoftwareId,
+            SoftwareId = int.Parse(request.SoftwareId),
             User = request.User,
         };
         _context.UserIssues.Add(newIssue);

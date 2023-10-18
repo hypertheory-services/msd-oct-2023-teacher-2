@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DotNetCore.CAP;
+
+using Microsoft.EntityFrameworkCore;
 
 using SoftwareCenter.Data;
 using SoftwareCenter.Models;
+using SoftwareCenter.Pages.Catalog;
 
 namespace SoftwareCenter.Services;
 
@@ -9,11 +12,13 @@ public class SoftwareCatalogService
 {
     private readonly SoftwareDataContext _context;
     private readonly IPublishSoftwareMessages _publisher;
+    private readonly ICapPublisher _capPublisher;
 
-    public SoftwareCatalogService(SoftwareDataContext context, IPublishSoftwareMessages publisher)
+    public SoftwareCatalogService(SoftwareDataContext context, IPublishSoftwareMessages publisher, ICapPublisher capPublisher)
     {
         _context = context;
         _publisher = publisher;
+        _capPublisher = capPublisher;
     }
 
     public IQueryable<SoftwareInventoryItemEntity> GetActiveTitles() => _context.GetActiveTitles();
@@ -44,5 +49,11 @@ public class SoftwareCatalogService
 
             await _publisher.RetireSoftwareTitleAsync(title);
         }
+    }
+
+    public async Task AddAnnotationToTitleAsync(UserEventAnnotation annotation)
+    {
+        // TODO: Store it locally.
+        await _capPublisher.PublishAsync("company.com.software.userissuerannotated", annotation);
     }
 }

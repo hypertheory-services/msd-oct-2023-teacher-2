@@ -18,7 +18,13 @@ public class SoftwareDataContext : DbContext
     }
 
 
-
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<SoftwareInventoryItemEntity>()
+            .HasMany(e => e.Issues)
+            .WithOne(e => e.Software)
+            .HasForeignKey(e => e.SoftwareId);
+    }
 
 
 }

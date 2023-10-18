@@ -9,6 +9,7 @@ public class SoftwareInventoryItemEntity
     public string Publisher { get; set; } = string.Empty;
     public string SupportTech { get; set; } = string.Empty;
     public bool Retired { get; set; } = false;
+    public ICollection<UserIssueEntity> Issues { get; set; } = null!;
     
     public static SoftwareInventoryItemEntity From(TitleCreateModel model)
     {
