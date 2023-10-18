@@ -20,13 +20,13 @@ public class KafkfaUserHandler
 
     public async Task ConsumesAsync(UserIssueCreated @event)
     {
-        
+       
         var software = await _session.LoadAsync<SoftwareEntity>(@event.SoftwareId);
         var user = await _session.LoadAsync<UserEntity>(@event.UserId);
-
+        if(user is null || software is null) { return; }
         var message = new UserIssueCreatedPublicEvent
         {
-            IssueId = @event.IssueId.ToString(),
+            IssueId = @event.Id.ToString(),
             User = user.Identifier,
             SoftwareId = software.SourceId,
             Description = @event.Narrative,
