@@ -1,0 +1,9 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": [
+    "angular.ng-template",
+    "johnpapa.vscode-peacock",
+    "humao.rest-client",
+    "esbenp.prettier-vscode"
+  ]
+}
